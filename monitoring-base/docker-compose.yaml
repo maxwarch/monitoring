@@ -1,35 +1,56 @@
-version: "3.8"
-
 services:
   app:
+    container_name: app
     build:
       context: ./app
-    restart: unless-stopped
-    container_name: app
+    restart: always
     ports:
       - 8000:8000
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - ./app:/app #./app/log:/var/log
     networks:
-      example-network:
-        ipv4_address: 172.16.238.10
+      - monitor
 
   prometheus:
+    container_name: prometheus
     image: prom/prometheus:latest
     restart: unless-stopped
-    container_name: prometheus
     ports:
       - 9090:9090
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      example-network:
-        ipv4_address: 172.16.238.11
+      - monitor
+
+  loki:
+    container_name: loki
+    image: grafana/loki:latest
+    ports:
+      - 3100:3100
+    volumes:
+      - ./loki/config.yml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - monitor
+
+  promtail:
+    container_name: promtail
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail/config.yml:/etc/promtail/config.yaml
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - monitor
 
   grafana:
-    image: grafana/grafana
     container_name: grafana
+    image: grafana/grafana
     restart: unless-stopped
     depends_on:
       - prometheus
+      - loki
     ports:
       - 3000:3000
     volumes:
@@ -37,14 +58,14 @@ services:
     env_file:
       - ./grafana/config.monitoring
     networks:
-      example-network:
-        ipv4_address: 172.16.238.12
+      - monitor
 
 networks:
-  example-network:
-    name: example-network
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.238.0/24
+  monitor:
+    # example-network:
+    #   name: example-network
+    #   driver: bridge
+    #   ipam:
+    #     driver: default
+    #     config:
+    #       - subnet: 172.16.238.0/24

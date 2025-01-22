@@ -15,7 +15,15 @@
         "oliversturm.fix-json",
         "janisdd.vscode-edit-csv",
         "charliermarsh.ruff",
-        "stalinbalraj.timestamp-converter"
+        "stalinbalraj.timestamp-converter",
+        "maximus136.change-string-case",
+        "ms-azuretools.vscode-docker",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "ms-toolsai.jupyter-renderers",
+        "shd101wyy.markdown-preview-enhanced",
+        "christian-kohler.path-intellisense",
+        "ms-python.debugpy",
+        "donjayamanne.python-environment-manager"
       ]
     }
   },

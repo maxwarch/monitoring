@@ -1,0 +1,10 @@
+{
+    "logger": {
+        "path": "./logs",
+        "filename": "access.log",
+        "level": "debug",
+        "rotation": "20 days",
+        "retention": "1 months",
+        "format": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> cont={extra[request_id]} - module={name} func={function} line={line} - mesg={message}"
+    }
+}

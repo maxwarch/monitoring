@@ -42,3 +42,7 @@ On the FastAPI, you can access `/metrics` endpoint to see the data Prometheus is
 * [Prometheus FastAPI Instrumentator](https://github.com/trallnag/prometheus-fastapi-instrumentator)
 * [Generate and Track Metrics for Flask API Applications Using Prometheus and Grafana](https://medium.com/swlh/generate-and-track-metrics-for-flask-api-applications-using-prometheus-and-grafana-55ddd39866f0)
 * [PromQL for Humans](https://timber.io/blog/promql-for-humans/)
+
+## Resources
+- [loguru](https://signoz.io/guides/loguru/)
+- [loki+docker](https://abhiraj2001.medium.com/monitoring-docker-containers-with-grafana-loki-and-promtail-4302a9417c0d)
