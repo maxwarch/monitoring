@@ -13,8 +13,8 @@ config_path=Path(__file__).with_name("logging_config.json")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict]
-    print(loggers)
+    # loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict]
+    # print(loggers)
 
     logger = CustomizeLogger.make_logger(config_path)
     app.logger = logger

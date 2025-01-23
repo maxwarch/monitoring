@@ -1,0 +1,339 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 3,
+    "links": [],
+    "panels": [
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "ceauxm76q6800b"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "filterable": true,
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green"
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "timestamp"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 186
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "log"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 567
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "nom"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 86
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "prenom"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hidden",
+                                "value": true
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "nom"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hidden",
+                                "value": true
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "patient"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hidden",
+                                "value": true
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Nom prénom"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.align",
+                                "value": "left"
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 150
+                            },
+                            {
+                                "id": "custom.minWidth",
+                                "value": 150
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 1,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "enablePagination": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true,
+                "sortBy": []
+            },
+            "pluginVersion": "11.4.0",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "timestamp",
+                            "text": "timestamp",
+                            "type": "timestamp_epoch"
+                        },
+                        {
+                            "selector": "log",
+                            "text": "log",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "patient",
+                            "text": "patient",
+                            "type": "string"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "ceauxm76q6800b"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "hide": false,
+                    "json_options": {
+                        "columnar": false,
+                        "root_is_not_array": false
+                    },
+                    "refId": "A",
+                    "root_selector": "",
+                    "source": "url",
+                    "type": "json",
+                    "url": "https://api.solsius.fr/crud/applog",
+                    "url_options": {
+                        "data": "",
+                        "method": "GET",
+                        "params": [
+                            {
+                                "key": "sole",
+                                "value": "$or:$soleid"
+                            },
+                            {
+                                "key": "__population",
+                                "value": "patient"
+                            },
+                            {
+                                "key": "__limit",
+                                "value": "$limit"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "title": "Logs",
+            "transformations": [
+                {
+                    "id": "extractFields",
+                    "options": {
+                        "format": "json",
+                        "jsonPaths": [
+                            {
+                                "alias": "prenom",
+                                "path": "firstname"
+                            },
+                            {
+                                "alias": "nom",
+                                "path": "lastname"
+                            }
+                        ],
+                        "keepTime": false,
+                        "replace": false,
+                        "source": "patient"
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "Nom prénom",
+                        "binary": {
+                            "left": {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "nom"
+                                }
+                            },
+                            "right": {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "prenom"
+                                }
+                            }
+                        },
+                        "mode": "reduceRow",
+                        "reduce": {
+                            "include": [
+                                "nom",
+                                "prenom"
+                            ],
+                            "reducer": "allValues"
+                        },
+                        "replaceFields": false,
+                        "window": {
+                            "reducer": "mean",
+                            "windowAlignment": "trailing",
+                            "windowSize": 0.1,
+                            "windowSizeMode": "percentage"
+                        }
+                    }
+                }
+            ],
+            "type": "table"
+        }
+    ],
+    "preload": false,
+    "schemaVersion": 40,
+    "tags": [],
+    "templating": {
+        "list": [
+            {
+                "current": {
+                    "text": "SL-5A7556B1,SR-DB40D60E",
+                    "value": "SL-5A7556B1,SR-DB40D60E"
+                },
+                "description": "SL-5A7556B1,SR-DB40D60E",
+                "label": "Semelles",
+                "name": "soleid",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "SL-5A7556B1,SR-DB40D60E",
+                        "value": "SL-5A7556B1,SR-DB40D60E"
+                    }
+                ],
+                "query": "SL-5A7556B1,SR-DB40D60E",
+                "type": "textbox"
+            },
+            {
+                "current": {
+                    "text": "100",
+                    "value": "100"
+                },
+                "description": "Limite du nombre de records à récupérer",
+                "label": "Limite",
+                "name": "limit",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "100",
+                        "value": "100"
+                    }
+                ],
+                "query": "100",
+                "type": "textbox"
+            }
+        ]
+    },
+    "time": {
+        "from": "2025-01-02T11:06:05.971Z",
+        "to": "2025-02-14T03:06:05.971Z"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "log app",
+    "uid": "feav45i3kbbpcb",
+    "version": 15,
+    "weekStart": ""
+}
