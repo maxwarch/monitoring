@@ -18,30 +18,699 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 2,
     "links": [],
     "panels": [
         {
+            "collapsed": true,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 10,
+            "panels": [
+                {
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "ceay11koxds00a"
+                    },
+                    "description": "",
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "fixedColor": "dark-green",
+                                "mode": "fixed"
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "transparent",
+                                        "value": null
+                                    }
+                                ]
+                            }
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byType",
+                                    "options": "number"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "suffix: ms"
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "txPower"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "dBm"
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Batterie"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "mvolt"
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Date"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "dateTimeAsLocal"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
+                        "h": 3,
+                        "w": 24,
+                        "x": 0,
+                        "y": 1
+                    },
+                    "id": 7,
+                    "options": {
+                        "colorMode": "value",
+                        "graphMode": "none",
+                        "justifyMode": "auto",
+                        "orientation": "vertical",
+                        "percentChangeColorMode": "standard",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "/.*/",
+                            "values": false
+                        },
+                        "showPercentChange": false,
+                        "text": {
+                            "titleSize": 15,
+                            "valueSize": 18
+                        },
+                        "textMode": "value_and_name",
+                        "wideLayout": false
+                    },
+                    "pluginVersion": "11.4.0",
+                    "targets": [
+                        {
+                            "columns": [
+                                {
+                                    "selector": "rightLastParametersDate",
+                                    "text": "Date",
+                                    "type": "timestamp_epoch"
+                                },
+                                {
+                                    "selector": "rightBattery",
+                                    "text": "Batterie",
+                                    "type": "number"
+                                },
+                                {
+                                    "selector": "rightLastParameters",
+                                    "text": "",
+                                    "type": "string"
+                                },
+                                {
+                                    "selector": "rightFirmwareVersion",
+                                    "text": "firmware",
+                                    "type": "string"
+                                }
+                            ],
+                            "computed_columns": [
+                                {
+                                    "selector": "",
+                                    "text": "",
+                                    "type": "string"
+                                }
+                            ],
+                            "datasource": {
+                                "type": "yesoreyeram-infinity-datasource",
+                                "uid": "ceay11koxds00a"
+                            },
+                            "filters": [],
+                            "format": "table",
+                            "global_query_id": "",
+                            "parser": "backend",
+                            "refId": "Params",
+                            "root_selector": "",
+                            "source": "url",
+                            "type": "json",
+                            "url": "soles",
+                            "url_options": {
+                                "data": "",
+                                "method": "GET",
+                                "params": [
+                                    {
+                                        "key": "rightId",
+                                        "value": "SR-$soleRight"
+                                    },
+                                    {
+                                        "key": "leftId",
+                                        "value": "SL-$soleLeft"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "title": "Params Droite",
+                    "transformations": [
+                        {
+                            "id": "extractFields",
+                            "options": {
+                                "format": "json",
+                                "jsonPaths": [],
+                                "keepTime": false,
+                                "replace": false,
+                                "source": "rightLastParameters"
+                            }
+                        },
+                        {
+                            "id": "organize",
+                            "options": {
+                                "excludeByName": {
+                                    "firmware": true,
+                                    "leftLastParameters": true,
+                                    "rightLastParameters": true
+                                },
+                                "includeByName": {},
+                                "indexByName": {
+                                    "Batterie": 1,
+                                    "Date": 0,
+                                    "awareBleAdv": 4,
+                                    "firmware": 2,
+                                    "leftLastParameters": 10,
+                                    "recordAcqInterval": 3,
+                                    "recordBleAdv": 5,
+                                    "recordStopNoMoveDelay": 6,
+                                    "wearableBleAdv": 7,
+                                    "wearableWaitDelay": 8,
+                                    "wornMesureDelay": 9
+                                },
+                                "renameByName": {
+                                    "awareBleAdv": "awareAdv",
+                                    "recordAcqInterval": "recordInterval",
+                                    "recordBleAdv": "recordAdv",
+                                    "recordStopNoMoveDelay": "stopNoMove",
+                                    "wearableBleAdv": ""
+                                }
+                            }
+                        }
+                    ],
+                    "transparent": true,
+                    "type": "stat"
+                },
+                {
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "ceay11koxds00a"
+                    },
+                    "description": "",
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "thresholds"
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": null
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            }
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byType",
+                                    "options": "number"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "suffix: ms"
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "txPower"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "dBm"
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Batterie"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "mvolt"
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "Date"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "dateTimeAsLocal"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
+                        "h": 3,
+                        "w": 24,
+                        "x": 0,
+                        "y": 4
+                    },
+                    "id": 8,
+                    "options": {
+                        "colorMode": "value",
+                        "graphMode": "none",
+                        "justifyMode": "auto",
+                        "orientation": "vertical",
+                        "percentChangeColorMode": "standard",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "/.*/",
+                            "values": false
+                        },
+                        "showPercentChange": false,
+                        "text": {
+                            "titleSize": 15,
+                            "valueSize": 18
+                        },
+                        "textMode": "value_and_name",
+                        "wideLayout": false
+                    },
+                    "pluginVersion": "11.4.0",
+                    "targets": [
+                        {
+                            "columns": [
+                                {
+                                    "selector": "leftLastParametersDate",
+                                    "text": "Date",
+                                    "type": "timestamp_epoch"
+                                },
+                                {
+                                    "selector": "leftBattery",
+                                    "text": "Batterie",
+                                    "type": "number"
+                                },
+                                {
+                                    "selector": "leftLastParameters",
+                                    "text": "",
+                                    "type": "string"
+                                },
+                                {
+                                    "selector": "leftFirmwareVersion",
+                                    "text": "firmware",
+                                    "type": "string"
+                                }
+                            ],
+                            "computed_columns": [
+                                {
+                                    "selector": "",
+                                    "text": "",
+                                    "type": "string"
+                                }
+                            ],
+                            "datasource": {
+                                "type": "yesoreyeram-infinity-datasource",
+                                "uid": "ceay11koxds00a"
+                            },
+                            "filters": [],
+                            "format": "table",
+                            "global_query_id": "",
+                            "parser": "backend",
+                            "refId": "Params",
+                            "root_selector": "",
+                            "source": "url",
+                            "type": "json",
+                            "url": "soles",
+                            "url_options": {
+                                "data": "",
+                                "method": "GET",
+                                "params": [
+                                    {
+                                        "key": "rightId",
+                                        "value": "SR-$soleRight"
+                                    },
+                                    {
+                                        "key": "leftId",
+                                        "value": "SL-$soleLeft"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "title": "Params Gauche",
+                    "transformations": [
+                        {
+                            "id": "extractFields",
+                            "options": {
+                                "format": "json",
+                                "jsonPaths": [],
+                                "keepTime": false,
+                                "replace": false,
+                                "source": "leftLastParameters"
+                            }
+                        },
+                        {
+                            "id": "organize",
+                            "options": {
+                                "excludeByName": {
+                                    "firmware": true,
+                                    "leftLastParameters": true,
+                                    "rightLastParameters": true
+                                },
+                                "includeByName": {},
+                                "indexByName": {
+                                    "Batterie": 1,
+                                    "Date": 0,
+                                    "awareBleAdv": 4,
+                                    "firmware": 2,
+                                    "leftLastParameters": 10,
+                                    "recordAcqInterval": 3,
+                                    "recordBleAdv": 5,
+                                    "recordStopNoMoveDelay": 6,
+                                    "wearableBleAdv": 7,
+                                    "wearableWaitDelay": 8,
+                                    "wornMesureDelay": 9
+                                },
+                                "renameByName": {
+                                    "awareBleAdv": "awareAdv",
+                                    "recordAcqInterval": "recordInterval",
+                                    "recordBleAdv": "recordAdv",
+                                    "recordStopNoMoveDelay": "stopNoMove",
+                                    "wearableBleAdv": ""
+                                }
+                            }
+                        }
+                    ],
+                    "transparent": true,
+                    "type": "stat"
+                },
+                {
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "ceay11koxds00a"
+                    },
+                    "description": "",
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "fixedColor": "yellow",
+                                "mode": "fixed"
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "transparent",
+                                        "value": null
+                                    }
+                                ]
+                            }
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byType",
+                                    "options": "number"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "suffix: ms"
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "txPower"
+                                },
+                                "properties": [
+                                    {
+                                        "id": "unit",
+                                        "value": "dBm"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
+                        "h": 3,
+                        "w": 24,
+                        "x": 0,
+                        "y": 7
+                    },
+                    "id": 4,
+                    "options": {
+                        "colorMode": "value",
+                        "graphMode": "none",
+                        "justifyMode": "auto",
+                        "orientation": "vertical",
+                        "percentChangeColorMode": "standard",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "/.*/",
+                            "values": false
+                        },
+                        "showPercentChange": false,
+                        "text": {
+                            "titleSize": 16,
+                            "valueSize": 18
+                        },
+                        "textMode": "value_and_name",
+                        "wideLayout": false
+                    },
+                    "pluginVersion": "11.4.0",
+                    "targets": [
+                        {
+                            "columns": [
+                                {
+                                    "selector": "parameters",
+                                    "text": "",
+                                    "type": "string"
+                                }
+                            ],
+                            "computed_columns": [
+                                {
+                                    "selector": "",
+                                    "text": "",
+                                    "type": "string"
+                                }
+                            ],
+                            "datasource": {
+                                "type": "yesoreyeram-infinity-datasource",
+                                "uid": "ceay11koxds00a"
+                            },
+                            "filters": [],
+                            "format": "table",
+                            "global_query_id": "",
+                            "parser": "backend",
+                            "refId": "Params",
+                            "root_selector": "",
+                            "source": "url",
+                            "type": "json",
+                            "url": "soles",
+                            "url_options": {
+                                "data": "",
+                                "method": "GET",
+                                "params": [
+                                    {
+                                        "key": "rightId",
+                                        "value": "SR-$soleRight"
+                                    },
+                                    {
+                                        "key": "leftId",
+                                        "value": "SL-$soleLeft"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "title": "Params",
+                    "transformations": [
+                        {
+                            "id": "extractFields",
+                            "options": {
+                                "format": "json",
+                                "jsonPaths": [],
+                                "keepTime": false,
+                                "replace": false,
+                                "source": "parameters"
+                            }
+                        },
+                        {
+                            "id": "organize",
+                            "options": {
+                                "excludeByName": {
+                                    "_id": true,
+                                    "active": false,
+                                    "association": true,
+                                    "createdAt": true,
+                                    "firstData": true,
+                                    "lastData": true,
+                                    "leftBattery": true,
+                                    "leftFirmwareVersion": true,
+                                    "leftId": true,
+                                    "leftLastParameters": true,
+                                    "leftLastParametersDate": true,
+                                    "leftLastSynchronization": true,
+                                    "leftParameters": true,
+                                    "parameters": true,
+                                    "producedAt": true,
+                                    "rightBattery": true,
+                                    "rightFirmwareVersion": true,
+                                    "rightId": true,
+                                    "rightLastParameters": true,
+                                    "rightLastParametersDate": true,
+                                    "rightLastSynchronization": true,
+                                    "rightParameters": true,
+                                    "size": true,
+                                    "txPower": true,
+                                    "updatedAt": true
+                                },
+                                "includeByName": {},
+                                "indexByName": {
+                                    "_id": 11,
+                                    "active": 1,
+                                    "association": 12,
+                                    "awareBleAdv": 3,
+                                    "createdAt": 13,
+                                    "firstData": 14,
+                                    "lastData": 15,
+                                    "leftBattery": 16,
+                                    "leftFirmwareVersion": 17,
+                                    "leftId": 18,
+                                    "leftLastParameters": 19,
+                                    "leftLastParametersDate": 20,
+                                    "leftLastSynchronization": 21,
+                                    "leftParameters": 22,
+                                    "parameters": 23,
+                                    "producedAt": 24,
+                                    "recordAcqInterval": 2,
+                                    "recordBleAdv": 4,
+                                    "recordStopNoMoveDelay": 5,
+                                    "rightBattery": 25,
+                                    "rightFirmwareVersion": 26,
+                                    "rightId": 27,
+                                    "rightLastParameters": 28,
+                                    "rightLastParametersDate": 29,
+                                    "rightLastSynchronization": 30,
+                                    "rightParameters": 31,
+                                    "size": 32,
+                                    "solesId": 0,
+                                    "syncFrequency": 6,
+                                    "txPower": 10,
+                                    "updatedAt": 33,
+                                    "wearableBleAdv": 7,
+                                    "wearableWaitDelay": 8,
+                                    "wornMesureDelay": 9
+                                },
+                                "renameByName": {
+                                    "awareBleAdv": "awareAdv",
+                                    "recordAcqInterval": "recordInterval",
+                                    "recordBleAdv": "recordAdv",
+                                    "recordStopNoMoveDelay": "stopNoMove",
+                                    "solesId": "Nom",
+                                    "syncFrequency": ""
+                                }
+                            }
+                        }
+                    ],
+                    "transparent": true,
+                    "type": "stat"
+                }
+            ],
+            "title": "Params semelles",
+            "type": "row"
+        },
+        {
+            "collapsed": false,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 1
+            },
+            "id": 9,
+            "panels": [],
+            "title": "Logs",
+            "type": "row"
+        },
+        {
             "datasource": {
                 "type": "yesoreyeram-infinity-datasource",
-                "uid": "ceauxm76q6800b"
+                "uid": "ceay11koxds00a"
             },
             "fieldConfig": {
                 "defaults": {
                     "custom": {
                         "align": "auto",
                         "cellOptions": {
-                            "type": "auto"
+                            "type": "auto",
+                            "wrapText": false
                         },
                         "filterable": true,
-                        "inspect": false
+                        "inspect": true
                     },
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green"
+                                "color": "green",
+                                "value": null
                             },
                             {
                                 "color": "red",
@@ -59,7 +728,7 @@
                         "properties": [
                             {
                                 "id": "custom.width",
-                                "value": 186
+                                "value": 192
                             }
                         ]
                     },
@@ -70,8 +739,7 @@
                         },
                         "properties": [
                             {
-                                "id": "custom.width",
-                                "value": 567
+                                "id": "custom.width"
                             }
                         ]
                     },
@@ -146,10 +814,10 @@
                 ]
             },
             "gridPos": {
-                "h": 12,
+                "h": 17,
                 "w": 24,
                 "x": 0,
-                "y": 0
+                "y": 2
             },
             "id": 1,
             "options": {
@@ -164,7 +832,12 @@
                     "show": false
                 },
                 "showHeader": true,
-                "sortBy": []
+                "sortBy": [
+                    {
+                        "desc": true,
+                        "displayName": "timestamp"
+                    }
+                ]
             },
             "pluginVersion": "11.4.0",
             "targets": [
@@ -172,52 +845,60 @@
                     "columns": [
                         {
                             "selector": "timestamp",
-                            "text": "timestamp",
+                            "text": "",
                             "type": "timestamp_epoch"
                         },
                         {
-                            "selector": "log",
-                            "text": "log",
+                            "selector": "patient",
+                            "text": "",
                             "type": "string"
                         },
                         {
-                            "selector": "patient",
-                            "text": "patient",
+                            "selector": "log",
+                            "text": "",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "",
+                            "text": "",
                             "type": "string"
                         }
                     ],
                     "datasource": {
                         "type": "yesoreyeram-infinity-datasource",
-                        "uid": "ceauxm76q6800b"
+                        "uid": "ceay11koxds00a"
                     },
                     "filters": [],
                     "format": "table",
                     "global_query_id": "",
                     "hide": false,
                     "json_options": {
-                        "columnar": false,
                         "root_is_not_array": false
                     },
-                    "refId": "A",
+                    "refId": "Raw logs",
                     "root_selector": "",
                     "source": "url",
                     "type": "json",
-                    "url": "https://api.solsius.fr/crud/applog",
+                    "url": "applog",
                     "url_options": {
                         "data": "",
                         "method": "GET",
                         "params": [
                             {
                                 "key": "sole",
-                                "value": "$or:$soleid"
+                                "value": "$or:SR-$soleRight,SL-$soleLeft"
+                            },
+                            {
+                                "key": "__limit",
+                                "value": "$limit"
                             },
                             {
                                 "key": "__population",
                                 "value": "patient"
                             },
                             {
-                                "key": "__limit",
-                                "value": "$limit"
+                                "key": "__sort",
+                                "value": "-timestamp"
                             }
                         ]
                     }
@@ -278,9 +959,246 @@
                             "windowSizeMode": "percentage"
                         }
                     }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "[object Object]": true
+                        },
+                        "includeByName": {},
+                        "indexByName": {
+                            "Nom prénom": 5,
+                            "log": 1,
+                            "nom": 4,
+                            "patient": 2,
+                            "prenom": 3,
+                            "timestamp": 0
+                        },
+                        "renameByName": {}
+                    }
                 }
             ],
             "type": "table"
+        },
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "ceay11koxds00a"
+            },
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "timestamp"
+                        },
+                        "properties": []
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "log"
+                        },
+                        "properties": []
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "nom"
+                        },
+                        "properties": []
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "prenom"
+                        },
+                        "properties": []
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "nom"
+                        },
+                        "properties": []
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "patient"
+                        },
+                        "properties": []
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Nom prénom"
+                        },
+                        "properties": []
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 17,
+                "w": 24,
+                "x": 0,
+                "y": 19
+            },
+            "id": 11,
+            "options": {
+                "dedupStrategy": "none",
+                "enableLogDetails": true,
+                "prettifyLogMessage": false,
+                "showCommonLabels": false,
+                "showLabels": true,
+                "showTime": true,
+                "sortOrder": "Descending",
+                "wrapLogMessage": true
+            },
+            "pluginVersion": "11.4.0",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "timestamp",
+                            "text": "",
+                            "type": "timestamp_epoch"
+                        },
+                        {
+                            "selector": "patient",
+                            "text": "",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "log",
+                            "text": "",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "",
+                            "text": "",
+                            "type": "string"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "ceay11koxds00a"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "hide": false,
+                    "json_options": {
+                        "root_is_not_array": false
+                    },
+                    "refId": "Raw logs",
+                    "root_selector": "",
+                    "source": "url",
+                    "type": "json",
+                    "url": "applog",
+                    "url_options": {
+                        "data": "",
+                        "method": "GET",
+                        "params": [
+                            {
+                                "key": "sole",
+                                "value": "$or:SR-$soleRight,SL-$soleLeft"
+                            },
+                            {
+                                "key": "__limit",
+                                "value": "$limit"
+                            },
+                            {
+                                "key": "__population",
+                                "value": "patient"
+                            },
+                            {
+                                "key": "__sort",
+                                "value": "-timestamp"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "title": "",
+            "transformations": [
+                {
+                    "id": "extractFields",
+                    "options": {
+                        "format": "json",
+                        "jsonPaths": [
+                            {
+                                "alias": "prenom",
+                                "path": "firstname"
+                            },
+                            {
+                                "alias": "nom",
+                                "path": "lastname"
+                            }
+                        ],
+                        "keepTime": false,
+                        "replace": false,
+                        "source": "patient"
+                    }
+                },
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "Nom prénom",
+                        "binary": {
+                            "left": {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "nom"
+                                }
+                            },
+                            "right": {
+                                "matcher": {
+                                    "id": "byName",
+                                    "options": "prenom"
+                                }
+                            }
+                        },
+                        "mode": "reduceRow",
+                        "reduce": {
+                            "include": [
+                                "nom",
+                                "prenom"
+                            ],
+                            "reducer": "allValues"
+                        },
+                        "replaceFields": false,
+                        "window": {
+                            "reducer": "mean",
+                            "windowAlignment": "trailing",
+                            "windowSize": 0.1,
+                            "windowSizeMode": "percentage"
+                        }
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "[object Object]": true,
+                            "patient": true
+                        },
+                        "includeByName": {},
+                        "indexByName": {
+                            "Nom prénom": 5,
+                            "log": 1,
+                            "nom": 4,
+                            "patient": 2,
+                            "prenom": 3,
+                            "timestamp": 0
+                        },
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "type": "logs"
         }
     ],
     "preload": false,
@@ -290,20 +1208,38 @@
         "list": [
             {
                 "current": {
-                    "text": "SL-5A7556B1,SR-DB40D60E",
-                    "value": "SL-5A7556B1,SR-DB40D60E"
+                    "text": "DB40D60E",
+                    "value": "DB40D60E"
                 },
-                "description": "SL-5A7556B1,SR-DB40D60E",
-                "label": "Semelles",
-                "name": "soleid",
+                "description": "DB40D60E (pas de préfixe)",
+                "label": "Semelle droite",
+                "name": "soleRight",
                 "options": [
                     {
                         "selected": true,
-                        "text": "SL-5A7556B1,SR-DB40D60E",
-                        "value": "SL-5A7556B1,SR-DB40D60E"
+                        "text": "DB40D60E",
+                        "value": "DB40D60E"
                     }
                 ],
-                "query": "SL-5A7556B1,SR-DB40D60E",
+                "query": "DB40D60E",
+                "type": "textbox"
+            },
+            {
+                "current": {
+                    "text": "5A7556B1",
+                    "value": "5A7556B1"
+                },
+                "description": "5A7556B1 (pas de préfixe)",
+                "label": "Semelle gauche",
+                "name": "soleLeft",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "5A7556B1",
+                        "value": "5A7556B1"
+                    }
+                ],
+                "query": "5A7556B1",
                 "type": "textbox"
             },
             {
@@ -326,14 +1262,10 @@
             }
         ]
     },
-    "time": {
-        "from": "2025-01-02T11:06:05.971Z",
-        "to": "2025-02-14T03:06:05.971Z"
-    },
     "timepicker": {},
     "timezone": "browser",
     "title": "log app",
     "uid": "feav45i3kbbpcb",
-    "version": 15,
+    "version": 23,
     "weekStart": ""
 }

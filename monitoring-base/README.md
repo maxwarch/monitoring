@@ -41,3 +41,4 @@ On the FastAPI, you can access `/metrics` endpoint to see the data Prometheus is
     }
 }
 ```
+`timestamp = $gte-$lte:${__from:date:x},${__to:date:x}`
