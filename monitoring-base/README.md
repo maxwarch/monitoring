@@ -2,25 +2,12 @@
 
 This is a minimal setup that you can build to monitor your FastAPI microservice.
 
-## Installation
-
-There are only two prerequisites:
-
-* [Docker](https://docs.docker.com/get-docker/)
-* [Docker-compose](https://docs.docker.com/compose/install/)
-
-Having both, you'll need to clone the repository:
-
-``` bash
-git clone https://github.com/Kludex/fastapi-prometheus-grafana
-```
-
 ## Usage
 
 You'll need to run the docker containers:
 
 ``` bash
-docker-compose up
+docker compose up
 ```
 
 Now you have access to those three containers and their respective ports:
@@ -31,11 +18,6 @@ Now you have access to those three containers and their respective ports:
 
 On the FastAPI, you can access `/metrics` endpoint to see the data Prometheus is scraping from it.
 
-## How it looks like
-
-<p align="center">
-  <img src="./dashboard.jpeg">
-</p>
 
 ## References
 
@@ -46,3 +28,16 @@ On the FastAPI, you can access `/metrics` endpoint to see the data Prometheus is
 ## Resources
 - [loguru](https://signoz.io/guides/loguru/)
 - [loki+docker](https://abhiraj2001.medium.com/monitoring-docker-containers-with-grafana-loki-and-promtail-4302a9417c0d)
+
+# Installation du plugin docker pour Loki
+- `docker plugin install grafana/loki-docker-driver:2.9.1 --alias loki --grant-all-permissions`
+- Collez ce json dans `~/.docker/daemon.json`:
+```json
+{
+    "log-driver": "loki",
+    "log-opts": {
+        "loki-url": "http://localhost:3100/loki/api/v1/push",
+        "loki-batch-size": "400"
+    }
+}
+```
